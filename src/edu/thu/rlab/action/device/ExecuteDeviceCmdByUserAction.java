@@ -37,7 +37,6 @@ public class ExecuteDeviceCmdByUserAction extends BaseAction {
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-		//JOptionPane.showMessageDialog(null, "alert", "alert", JOptionPane.ERROR_MESSAGE);   
 		success = true;
 		if(null != deviceCmd.fileName) {
 			deviceCmd.setFileName(this.getRealPath(deviceCmd.fileName));

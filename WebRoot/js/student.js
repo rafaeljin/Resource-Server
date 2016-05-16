@@ -59,8 +59,6 @@ RLab.Student = function(config) {
 			disabled : true,
 			activeClass : 'menuItemMouseOver',
 			handler : this.run,
-			
-			//handler : this.connect,
 			scope : this
 			} ]
 	});
@@ -127,36 +125,27 @@ Ext.extend(RLab.Student,Ext.util.Observable, {
 			callback : (function(o, s, obj){
 				me.onSelected();
 				}).createInterceptor(RLab.Callback)
-				
-				
 		})
 	},
 	onSelected : function(){
 		this.deviceOpMenu.enableItem('connectDevice');
 		this.deviceOpMenu.disableItem('disconnectDevice');
 		this.runMenu.disableItem('run');
-		//this.currentExperiment.show();
 		
 		if(this.currentExperiment != null){
-			//alert("connect");
 			this.currentExperiment.destroy();
 			delete this.currentExperiment;
 		}
 	},
 	onConnected : function(){
-		//alert("Connect Success");
+		alert("Connect Success");
 		this.deviceOpMenu.disableItem('connectDevice');
 		this.deviceOpMenu.enableItem('disconnectDevice');
 		this.runMenu.enableItem('run');
 		RLab.Device.reset();
-		//alert("reset");
-		//this.currentExperiment.show();
-		//alert("afterreset");
-		
 		//if someone disconnect and then connect,and the device probably is changed because of that
 		//so it need to download the rbf file again, 
 		if(this.currentExperiment != null){
-			//alert("bushan");
 			this.currentExperiment.destroy();
 			delete this.currentExperiment;
 		}
@@ -168,7 +157,6 @@ Ext.extend(RLab.Student,Ext.util.Observable, {
 		
 	},
 	connect : function(){
-		//alert("connect");
 		var me = this;
 		me.deviceOpMenu.disableItem('connectDevice');//repeat click
 		RLab.Device.connect(me.onConnected, me, function(){
@@ -180,8 +168,6 @@ Ext.extend(RLab.Student,Ext.util.Observable, {
 	},
 	run : function(){
 		var me = this;
-		//me.currentExperiment.show();
-		
 		if(me.currentExperiment != null){
 			me.currentExperiment.reset();
 			me.currentExperiment.show();
@@ -189,17 +175,13 @@ Ext.extend(RLab.Student,Ext.util.Observable, {
 			RLab.Device.downloadExamFromUsb({
 				'deviceCmd.fileName' : me.path
 			},(function(){
-				
 				me.currentExperiment = new RLab.Experiment[me.name]({
 					title : RLab.Lang[me.name],
 					name : me.name,
 					expanel : me
 				});
-				
 				me.currentExperiment.show();
-				
 			}));
-			
 		}
 		
 	},

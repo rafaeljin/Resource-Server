@@ -23,7 +23,7 @@
 		<property name="deviceDAO" ref="deviceDAO"/>
 	</bean>
 	<bean name="deviceServer" class="edu.thu.rlab.usb.DeviceServer" init-method="init">
-		<property name="serverPort" value="8013"></property>
+		<property name="serverPort" value="8011"></property>
 		<property name="deviceDAO" ref="deviceDAO"></property>
 	</bean>
 </beans>

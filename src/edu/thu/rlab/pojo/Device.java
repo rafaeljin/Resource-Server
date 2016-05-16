@@ -143,7 +143,6 @@ public class Device implements Runnable{
 	public int connect(){
 		try{
 			socket = new Socket(this.getIp(), this.getTcpPort());
-			
 			out = new BufferedOutputStream(socket.getOutputStream());
 			in = new BufferedInputStream(socket.getInputStream());
 		}catch(Exception e){

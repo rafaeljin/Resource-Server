@@ -1,12 +1,8 @@
 RLab.Experiment = Ext.extend(RLab.Window, {
-	inputs : [],
+	input : [],
 	output : [],
 	init : function() {
-		this.addEvents({
-			"reset"   : true,
-			"change"  : true
-		});
-		//alert("1");
+		this.addEvents('reset', 'change');
 		RLab.Experiment.superclass.init.call(this);
 		this.toolBarEl = new RLab.ToolBar( {
 			renderTo : Ext.get(this.id + "_ToolBar"),
@@ -25,21 +21,12 @@ RLab.Experiment = Ext.extend(RLab.Window, {
 				width : 60
 			} ]
 		});
-		//alert("2");
 		this.body.on('click', this.onClick, this);
 		this.on('change', this.onChange, this);
-		//alert("3");
-		//alert(this.inputs.length);
-		if (this.inputs.length > 0)
-	{
-			//alert(this);
-	
-			//this.fireEvent('change', this);
-			//alert("7");
-	} 
-        
+		if (this.input.length > 0)
+			this.fireEvent('change', this);
+
 		var downloadBtn;
-		alert("button");
 		if ((downloadBtn = this.body.child('.rlab-setAllMemory')) != null) {
 			new RLab.Button( {
 				width : 90,
@@ -50,7 +37,6 @@ RLab.Experiment = Ext.extend(RLab.Window, {
 				handler : this.setAllMemory,
 				scope : this
 			});
-			alert("downloadbtn");
 		}
 
 	},
@@ -65,7 +51,7 @@ RLab.Experiment = Ext.extend(RLab.Window, {
 			alert('长度应小于1024');
 			return;
 		}
-		
+
 		var dbStatus;
 		RLab.Device.getDBStatus( {}, function(response) {
 			dbStatus = response.deviceCmd.dbStatus
@@ -195,17 +181,16 @@ RLab.Experiment = Ext.extend(RLab.Window, {
 	},
 	variablesToDBValue : function() {
 		var value = 0;
-		for ( var i = this.inputs.length - 1; i >= 0; i--) {
-			value = (value << 1) + this[this.inputs[i]];
+		for ( var i = this.input.length - 1; i >= 0; i--) {
+			value = (value << 1) + this[this.input[i]];
 		}
-		//alert(this.inputs.length);
 		return value;
 	},
 	variablesToDBMask : function() {
 		var mask = 0;
-		for ( var i = this.inputs.length - 1; i >= 0; i--) {
+		for ( var i = this.input.length - 1; i >= 0; i--) {
 			mask <<= 1;
-			if (this.inputs[i] != '0') {
+			if (this.input[i] != '0') {
 				mask += 1;
 			}
 		}
@@ -213,7 +198,6 @@ RLab.Experiment = Ext.extend(RLab.Window, {
 	},
 	onChange : function() {
 		var me = this;
-		//alert("change");
 		var value = me.variablesToDBValue();
 		var mask = me.variablesToDBMask();
 		RLab.Device.setDBStatus( {
@@ -223,25 +207,20 @@ RLab.Experiment = Ext.extend(RLab.Window, {
 			'deviceCmd.dataBus' : value,
 			'deviceCmd.dataBusMask' : mask
 		});
-		//alert("change2");
-		me.showResult();//没有被执行
-		//alert("change3");
+		
+		me.showResult();
 	},
 	showResult : function(ret) {
 		var me = this;
-		//alert("showresult");
+		
 		var deviceCmd;
-		//alert("cmdqian");
 		RLab.Device.getRegs( {}, function(response) {
-			//alert(response);
 			deviceCmd = response.deviceCmd;
-			//alert("cmdhou");
 		});
-		//alert(deviceCmd.regs[0]);
-		//alert(deviceCmd.regs[2]);
+		
 		me.expanel.led.change(deviceCmd.regs[253], deviceCmd.regs[254]);
-		//me.expanel.reg.onDataChanged(deviceCmd);
-		//alert("led");
+		me.expanel.reg.onDataChanged(deviceCmd);
+		
 		var addr = deviceCmd.regs[253];
 		var el;
 		for ( var i = 0, length = me.output.length; i < length; i++) {
@@ -258,16 +237,16 @@ RLab.Experiment = Ext.extend(RLab.Window, {
 	reset : function() {
 		var me = this;
 		var el;
-		for ( var i = 0, length = me.inputs.length; i < length; i++) {
-			me[me.inputs[i]] = 0;
-			el = Ext.get(me.inputs[i]);
+		for ( var i = 0, length = me.input.length; i < length; i++) {
+			me[me.input[i]] = 0;
+			el = Ext.get(me.input[i]);
 			if (el)
 				el.setInnerText('0');
 		}
 		RLab.Device.reset();
 		
-		if (me.inputs.length > 0)
-			me.fireEvent('change', me);
+		if (me.input.length > 0)
+			me.fireEvent('change', me);// here
 		
 	},
 	destroy : function(){
@@ -302,7 +281,7 @@ RLab.Experiment.dlexp0 = Ext
 					B : 0,
 					C : 0,
 					D : 0,
-					inputs : [ 'D', 'C', 'B', 'A' ],
+					input : [ 'D', 'C', 'B', 'A' ],
 					output : [ 0, 0, 0, 'g0', 'f0', 'e0', 'd0', 'c0', 'b0',
 							'a0' ]
 				});
@@ -333,7 +312,7 @@ RLab.Experiment.dlexp1 = Ext
 					b : 0,
 					a : 0,
 					y : 0,
-					inputs : [ 's0', 's1', 'd', 'c', 'b', 'a' ],
+					input : [ 's0', 's1', 'd', 'c', 'b', 'a' ],
 					output : [ 'y' ]
 				});
 RLab.Experiment.dlexp2 = Ext
@@ -373,12 +352,12 @@ RLab.Experiment.dlexp2 = Ext
 					b2 : 0,
 					b1 : 0,
 					b0 : 0,
-					inputs : [ 'cin', 'a3', 'a2', 'a1', 'a0', 'b3', 'b2', 'b1',
+					input : [ 'cin', 'a3', 'a2', 'a1', 'a0', 'b3', 'b2', 'b1',
 							'b0' ],
 					output : [ 'cout', 'f0', 'f1', 'f2', 'f3' ]
 				});
-RLab.Experiment.dlexp3 = Ext.extend(RLab.Experiment, {
-	inputs : [ 'a0', 'a1', 'a2', 'a3', 'b0', 'b1', 'b2', 'b3', 'cin', ],
+RLab.Experiment.dlexp3 = Ext.extend(RLab.Experiment.dlexp2, {
+	input : [ 'a0', 'a1', 'a2', 'a3', 'b0', 'b1', 'b2', 'b3', 'cin', ],
 	output : [ 'f0', 'f1', 'f2', 'f3', 'cout' ],
 	onClick : function(e) {
 		var me = this;
@@ -475,7 +454,7 @@ RLab.Experiment.dlexp5 = Ext
 					seq1 : 0,
 					seq0 : 0,
 					seq : 0,
-					inputs : [ "seq" ],
+					input : [ "seq" ],
 					output : [ "seq0", "seq1", "seq2", "seq3", "seq4", "seq5",
 							"seq6", "seq7" ],
 					reverseInput : function(el) {

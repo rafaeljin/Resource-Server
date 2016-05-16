@@ -128,9 +128,6 @@ public class DeviceServiceImpl extends TimerTask implements DeviceService {
 			Set<User> toDelete = new HashSet(0);
 			while (it.hasNext()) {
 				device = (Device) it.next();
-				long l1 = System.currentTimeMillis();
-				long l2 = device.getLastOpertaionTime();
-				long l3 = userTimeoutTime;
 				if((System.currentTimeMillis() - device.getLastOpertaionTime()) >  userTimeoutTime){
 					user = device.getUser();
 					user.setDeviceState(User.DEVICESTATE.TIMEOUT);

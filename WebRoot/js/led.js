@@ -41,25 +41,24 @@ RLab.LedPanel.prototype = {
 		var i, tv;
 		//first change led-fa
 		tv = data;
-		//alert(data);
 		for(i = 7; i >= 4; i--){
-			this.changeFA(i, tv & 0xFF);
+			this.changeFA(i, tv%256);
 			tv = tv >> 8;
 		}
 		tv = addr;
 		for(i = 3; i >= 1; i--){
-			this.changeFA(i, tv & 0xFF);
+			this.changeFA(i, tv%256);
 			tv = tv >> 8;
 		}
 		//chnage ds
 		tv = data;
 		for(i = 8; i >= 5; i--){
-			this.changeDS(i, tv & 0x7F);
+			this.changeDS(i, tv%128);
 			tv = tv >> 7;
 		}
-		tv = (addr<< 4) | ((data>>28) & 0xF);
+		tv = (addr<< 4) + (data>>28);
 		for(i = 4; i >= 1; i--){
-			this.changeDS(i, tv & 0x7F);
+			this.changeDS(i, tv%128);
 			tv = tv >> 7;
 		}
 	},
@@ -68,7 +67,7 @@ RLab.LedPanel.prototype = {
 		var child;
 		for(var i = 0; i < 8; i++){
 			child = el.child(".led-" + i, true);
-			if((value & 1) == 1)
+			if((value%2) == 1)
 				child.style.backgroundImage = 'url(images/led-on.png)';
 			else
 				child.style.backgroundImage = 'url(images/led-off.png)';
@@ -80,7 +79,7 @@ RLab.LedPanel.prototype = {
 		var child;
 		for(var i = 0; i < 7; i++){
 			child = el.child(".ds-" + i, true);
-			if((value & 1) == 1)
+			if((value%2) == 1)
 				child.style.backgroundColor = '#FF0000';
 			else
 				child.style.backgroundColor = '#666666';

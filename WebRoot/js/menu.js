@@ -59,11 +59,11 @@ RLab.Button = Ext
 
 					window : null, // the window when click on this item which
 									// should be opened
-					
+
 					init : function() {
 						var me = this;
 						me.addEvents('click', 'activate', 'deactivate');
-						//alert("button");
+
 						me.btnTpl = new Ext.XTemplate(
 								'<li id="{id}"><a href="#">{text}</a></li>');
 						if (!me.parentMenu) // show that me object is just a

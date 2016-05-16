@@ -1,6 +1,6 @@
 RLab = {
 	version : "rlab-web1.0",
-	author : "/ooooDong Wu",
+	author : "Dong Wu",
 	date : "2012-1-16"
 };
 RLab.CourseInfo = {
@@ -107,7 +107,6 @@ RLab.User.prototype = {
 };
 
 RLab.Callback = function(options, success, response) {
-	return true;
 	if (success == true) {
 		var r = Ext.decode(response.responseText);
 		if (r.success == true) {
@@ -116,12 +115,12 @@ RLab.Callback = function(options, success, response) {
 			if(options.failureHandler)
 				options.failureHandler.call(window);
 			alert("wrong with code:" + r.errorCode);
-	}
+		}
 	} else {
 		if(options.failureHandler)
 			options.failureHandler.call(window);
 		
-	alert("wrong with status:" + response.status + ":"
+		alert("wrong with status:" + response.status + ":"
 				+ response.responseText);
 
 	}
@@ -141,7 +140,6 @@ RLab.Device = function() {
 				}
 			}).createInterceptor(RLab.Callback)
 		});
-		//alert("execute");
 	}
 	return {
 		connect : function(callback, scope, failureHandler) {
@@ -188,11 +186,9 @@ RLab.Device = function() {
 		},
 		// output : int[] regs
 		getRegs : function(params, handler, scope) {
-			//alert("getRegs");
 			params = Ext.apply(params || {}, {
 				'deviceCmd.type' : 'GetRegs'
 			});
-			//alert("getRegs1");
 			execute('executeDeviceCmdByUser', params, handler, scope);
 		},
 		// output : byte dbStatus
