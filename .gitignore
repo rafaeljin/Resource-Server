@@ -1,6 +1,5 @@
 # Ignore everything:
-*
-
+/*
 # Except for the themes directories:
-!src/
-!WebRoot/
+!/src
+!/WebRoot
