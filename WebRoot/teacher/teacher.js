@@ -6,7 +6,7 @@ RLab.Teacher = function() {
 			method : 'post',
 			params : {path : r.path},
 			success : function(){
-				alert("Success (cmttd3)");
+				alert("Success");
 			},
 			failure : function(){
 				alert("Failure");
@@ -38,4 +38,4 @@ RLab.Teacher = function() {
 			text : "Experiment"
 		}]
 	});
-};
+}

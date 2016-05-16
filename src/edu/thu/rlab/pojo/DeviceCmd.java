@@ -52,7 +52,7 @@ public class DeviceCmd {
 
 		int ret = 0;
 		try {
-
+			device.connect();
 			int len = 0;
 			if (TYPE.WriteFpgaToFlash.equals(type)
 					|| TYPE.DownloadFpgaFromUsb.equals(type)
@@ -155,7 +155,7 @@ public class DeviceCmd {
 				ret = buf[0];
 				break;
 			case ReadRam:
-				ram = new byte[len];
+				ram = new byte[len+1];
 				ram[0] = buf[0];
 				int offset = 1;
 				int length;
@@ -191,6 +191,7 @@ public class DeviceCmd {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		device.disconnect();
 		return ret;
 	}
 
