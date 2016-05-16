@@ -1,0 +1,73 @@
+
+<script language="JavaScript1.2" type="text/javascript">
+<!--
+//  Place this in the 'head' section of your page.  
+
+function delayURL(url, time) {
+    setTimeout("top.location.href='" + url + "'", time);
+}
+
+//-->
+
+</script>
+
+<!-- Place this in the 'body' section -->
+<a href="javascript:" onClick="delayURL('myPage.htm','2000')">My Delayed Link</a>
+<script language="javascript">
+<!--
+function initArray() {
+this.length = initArray.arguments.length;
+for (var i = 0; i < this.length; i++)
+this[i+1] = initArray.arguments[i];
+}
+
+var DOWArray = new
+initArray("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+var today = new Date();
+var day = DOWArray[today.getDay()+1];
+window.location = day + ".html";
+// -->
+
+</script>
+<!--  Add to header -->
+
+<script language="JavaScript">
+
+<!--
+function SetChecked(boxname) {
+	f=document.form1;
+// change form1 if you change your form name.
+	for( i=0 ; i<f.elements.length ; i++) {
+		if (f.elements[i].name==boxname) {
+		f.elements[i].checked=true;
+		}
+	}
+}
+
+//-->
+
+</script>
+
+
+<!--  Add to Boddy -->
+
+<a href="javascript:;" onclick="SetChecked('checkbox_name');return false;">Select All</a>
+<!--replace checkbox_name with the name of checkbox you want to select -->
+<form>
+<input type="button" value="Back to Previous Page" 
+onClick="javascript: history.go(-1)">
+</form>
+
+<a href="javascript:window.external.AddFavorite('http://www.myeclipseide.com', 'J2EE IDE homepage')">Add to Favorites</a> <?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="rlab-spring"
+  id="myeclipse.1326645293697"
+  context-root="/rlab-spring"
+  j2ee-spec="5.0"
+  archive="rlab-spring.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
