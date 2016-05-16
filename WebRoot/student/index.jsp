@@ -28,7 +28,7 @@
 	</head>
 
 	<body>
-		<div id="mainPanel" align="center">
+		<div id=mainPanel" align="center">
 			<div id="userPanel" align="right">
 			</div>
 		</div>

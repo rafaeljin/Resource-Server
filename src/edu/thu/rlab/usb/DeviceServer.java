@@ -36,6 +36,7 @@ public class DeviceServer extends Thread {
 		this.start();
 	}
 
+	@SuppressWarnings({ "resource" })
 	@Override
 	public void run() {
 		ServerSocket server = null;

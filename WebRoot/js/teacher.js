@@ -56,7 +56,7 @@ RLab.Teacher.prototype = {
 			method : 'post',
 			params : {path : r.path},
 			success : function(){
-				alert("Success (cmttd2)");
+				alert("Success");
 			},
 			failure : function(){
 				alert("Failure");

@@ -4,7 +4,6 @@ import org.apache.struts2.json.annotations.JSON;
 
 import edu.thu.rlab.action.BaseAction;
 import edu.thu.rlab.pojo.Course;
-import edu.thu.rlab.server.Uploader;
 import edu.thu.rlab.service.CourseService;
 
 public class CreateCourseAction extends BaseAction {
@@ -27,8 +26,8 @@ public class CreateCourseAction extends BaseAction {
 	}
 	@Override
 	public String execute() throws Exception {
+		// TODO Auto-generated method stub
 		this.courseService.create(course);
-		Uploader.upload(course);
 		success = true;		
 		return INPUT;
 	}
