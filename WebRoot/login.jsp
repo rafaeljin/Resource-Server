@@ -86,7 +86,7 @@ body {
 																			style="height: 20px; background-color: #032e49; color: #88b5d1; border: solid 1px #88b5d1;" />
 																	</td>
 																	<td height="22" valign="middle">
-<!-- 																		<a href="#" onclick="document.form.submit();"><img src="images/dl.gif" width="39" height="17" /> </a> -->
+ 																		<a href="#" onclick="document.form.submit();"><img src="images/dl.gif" width="39" height="17" /> </a>
 																	</td>
 																</tr>
 																<tr>

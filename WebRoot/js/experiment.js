@@ -246,7 +246,7 @@ RLab.Experiment = Ext.extend(RLab.Window, {
 		RLab.Device.reset();
 		
 		if (me.input.length > 0)
-			me.fireEvent('change', me);
+			me.fireEvent('change', me);// here
 		
 	},
 	destroy : function(){

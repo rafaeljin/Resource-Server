@@ -59,7 +59,7 @@ RLab.Window = Ext.extend(RLab.Component,
 							//TODO
 								me.body.child('form', true).reset();
 								me.close();
-								alert('Success');
+								alert('Success (cmttd1)');
 							}).createInterceptor(RLab.Callback)
 						});
 					},
