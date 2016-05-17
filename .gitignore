@@ -1,2 +1,13 @@
 # Ignore everything:
 /*
+# Except for the themes directories:
+!/src
+!/WebRoot
+/WebRoot/*
+!/WebRoot/admin
+!/WebRoot/js
+!/WebRoot/student
+!/WebRoot/teacher
+!/WebRoot/index.jsp
+!/WebRoot/login.jsp
+!/WebRoot/upload-test.html
