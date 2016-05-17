@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<package name="user" extends="json-default">
+		<action name="loginSuccess" class="loginSuccessAction">
+			<result type="redirect">index.jsp</result>
+		</action>
+		<action name="createUser" class="createUserAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<action name="batchImportStudent"
+			class="batchImportStudentAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<action name="getProfile" class="getProfileAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<action name="updateProfile" class="updateProfileAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<action name="modifyPassword" class="modifyPasswordAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+	</package>
+
+	<package name="course" extends="json-default">
+		<action name="createCourse" class="createCourseAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<action name="listCourse" class="listCourseAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="experiment" extends="json-default">
+		<action name="selectExperiment" class="selectExperimentAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>			
+		</action>
+		<action name="listExperiment" class="listExperimentAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>			
+		</action>	
+		<action name="judgeByTeacher" class="judgeByTeacherAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>			
+		</action>
+		<action name="judgeBySystem" class="judgeBySystemAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>			
+		</action>
+		<action name="getCpuVariables" class="getCpuVariablesAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>			
+		</action>
+		<action name="saveCpuVariables" class="saveCpuVariablesAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>			
+		</action>
+	</package>
+	
+	<package name="device" extends="json-default">
+		<action name="connectDevice" class="connectDeviceAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<action name="disconnectDevice" class="disconnectDeviceAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	
+		<action name="executeDeviceCmdByUser"
+			class="executeDeviceCmdByUserAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<action name="executeDeviceCmdByAdmin"
+			class="executeDeviceCmdByAdminAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<action name="listDevice" class="listDeviceAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="util" extends="json-default">
+		<action name="uploadFile" class="uploadFileAction">
+			<result name="input" type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		
+		<action name="downloadFile" class="downloadFileAction">
+			<result type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">
+					attachment;filename="ram.bin"
+				</param>
+				<param name="inputName">file</param>
+			</result>
+		</action>
+	</package>
+	<package name="test" extends="json-default">
+		<action name="uploadTest" class="uploadTestAction">
+			<result type="json">
+				<param name="ignoreHierarchy">false</param>
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+	</package>
+</struts>
