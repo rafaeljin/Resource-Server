@@ -5,9 +5,3 @@
 !/WebRoot
 /WebRoot/*
 !/WebRoot/admin
-!/WebRoot/js
-!/WebRoot/student
-!/WebRoot/teacher
-!/WebRoot/index.jsp
-!/WebRoot/login.jsp
-!/WebRoot/upload-test.html
