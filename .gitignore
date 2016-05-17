@@ -1,7 +1,2 @@
 # Ignore everything:
 /*
-# Except for the themes directories:
-!/src
-!/WebRoot
-/WebRoot/*
-!/WebRoot/admin
