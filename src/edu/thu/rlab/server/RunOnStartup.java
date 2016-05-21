@@ -2,7 +2,6 @@ package edu.thu.rlab.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.Socket;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -92,20 +91,34 @@ public class RunOnStartup extends HttpServlet {
 	 */
 	@Override
 	public void init() throws ServletException {
-		if(!Uploader.authen()){
-			try { 
-			    Socket socket = new Socket("localhost", 8005); 
-			    if (socket.isConnected()) { 
-			    	
-			        PrintWriter pw = new PrintWriter(socket.getOutputStream(), true); 
-			        pw.println("SHUTDOWN");//send shut down command 
-			        pw.close(); 
-			        socket.close(); 
-			    } 
-			} catch (Exception e) { 
-			    e.printStackTrace(); 
+		// uncomment if you want to shutdown server when authentication failed
+		/*if( MainserverInfo.activated){
+			if(!Uploader.authen()){
+				try { 
+				    Socket socket = new Socket("localhost", 8005); 
+				    if (socket.isConnected()) { 
+				        PrintWriter pw = new PrintWriter(socket.getOutputStream(), true); 
+				        pw.println("SHUTDOWN");//send shut down command 
+				        pw.close(); 
+				        socket.close(); 
+				    } 
+				} catch (Exception e) { 
+				    e.printStackTrace(); 
+				}
 			}
-		}
+		}*/
+
+		/*DBEditor dbeditor = new DBEditor("mydb","root","rlab");
+        dbeditor.connect();
+        Messenger.authen();
+        /*Database database = new Database();
+        database.chasulist = dbeditor.readAllCHU();
+        database.cpulist = dbeditor.readAllCpus();
+        database.experimentlist = dbeditor.readAllExperiments();
+        database.userlist = dbeditor.readAllUsers();
+        database.courselist = dbeditor.readAllCourses();*/
+		Messenger.authen();
+        
 	}
 
 }

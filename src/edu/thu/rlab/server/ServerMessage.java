@@ -1,5 +1,12 @@
 package edu.thu.rlab.server;
+import java.util.List;
+
 import edu.thu.rlab.pojo.Course;
+import edu.thu.rlab.pojo.CourseHasUser;
+import edu.thu.rlab.pojo.Cpu;
+import edu.thu.rlab.pojo.Database;
+import edu.thu.rlab.pojo.Experiment;
+import edu.thu.rlab.pojo.User;
 
 public class ServerMessage implements java.io.Serializable{
 	
@@ -11,6 +18,8 @@ public class ServerMessage implements java.io.Serializable{
 	public static final int RESOURCE_SERVER_AUTHEN = 0;
 	
 	private String authen_code;
+	
+	private Database database;
 	
 	public static final int RESOURCE_SERVER_UPDATE_COURSE = 1;
 	
@@ -43,5 +52,20 @@ public class ServerMessage implements java.io.Serializable{
 	public Course getCourse(){
 		return course;
 	}
+	
+	public Database getDatabase(){
+		return database;
+	}
+	
+	public void setDatabase(List<Course> cl,List<Experiment> el,List<User> ul,
+			List<CourseHasUser> chul,List<Cpu> cpul){
+		database.chasulist = chul;
+        database.cpulist = cpul;
+        database.experimentlist = el;
+        database.userlist = ul;
+        database.courselist = cl;
+		return;
+	}
+
 
 }
