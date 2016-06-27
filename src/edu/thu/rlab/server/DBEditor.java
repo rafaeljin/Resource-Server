@@ -1,11 +1,8 @@
 package edu.thu.rlab.server;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,11 +13,16 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
-import edu.thu.rlab.pojo.*;
+import edu.thu.rlab.pojo.Course;
+import edu.thu.rlab.pojo.CourseHasUser;
+import edu.thu.rlab.pojo.Cpu;
+import edu.thu.rlab.pojo.Database;
+import edu.thu.rlab.pojo.Experiment;
+import edu.thu.rlab.pojo.User;
 
 public class DBEditor {
 	
@@ -94,7 +96,9 @@ public class DBEditor {
 		}
 		finally
 		{
-			if (st != null) st.close();
+			if (st != null) {
+				st.close();
+			}
 		}
 	}
 
@@ -153,7 +157,6 @@ public class DBEditor {
         	keylist.add("create_time"); valuelist.add(stringValue(dateFormat.format(course.getCreateTime())));
         	
         	sql = QueryCreator.getInsertQuery(dbname, "course", keylist, valuelist);
-        	System.out.println(sql);
 			statement.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -194,7 +197,6 @@ public class DBEditor {
         	keylist.add("experiment_name"); valuelist.add(stringValue(cpu.getExperimentName()));
         	keylist.add("variables"); valuelist.add(stringValue(cpu.getVariables()));
         	sql = QueryCreator.getInsertQuery(dbname, "cpu", keylist, valuelist);
-        	System.out.println(sql);
 			statement.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -234,7 +236,6 @@ public class DBEditor {
         		keylist.add("remark_user_id"); valuelist.add(stringValue(exp.getRemarkUser().getId()));
         	}
         	sql = QueryCreator.getInsertQuery(dbname, "experiment", keylist, valuelist);
-        	System.out.println(sql);
 			statement.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -278,7 +279,6 @@ public class DBEditor {
         	}
         	
         	sql = QueryCreator.getInsertQuery(dbname, "user", keylist, valuelist);
-        	System.out.println(sql);
 			statement.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -297,7 +297,6 @@ public class DBEditor {
         	keylist.add("user_id"); valuelist.add(stringValue(chu.userid));
         	
         	sql = QueryCreator.getInsertQuery(dbname, "course_has_user", keylist, valuelist);
-        	System.out.println(sql);
 			statement.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -324,7 +323,6 @@ public class DBEditor {
                 create_time = new Timestamp (date.getTime());
                 Course c = new Course(code, name, year, season, create_time); c.setId(id);
                 courses.add(c);
-                //System.out.println(id + "\t" + code + "\t" + name + "\t" + season + "\t" + year + "\t" + create_time);
             }
             rs.close();
 		} catch (SQLException e) {
@@ -375,7 +373,6 @@ public class DBEditor {
             	Experiment e = new Experiment(user, course, remarkUser,name,createTime,opTime,  opTimes,  submitTimes,
             			lastSubmitPath,  done,  doneTime,srcPath,  grade,  remark); e.setId(id);
             	exps.add(e);
-                //System.out.println(id + "\t" + code + "\t" + name + "\t" + season + "\t" + year + "\t" + create_time);
             }
             rs.close();
 		} catch (SQLException e) {
@@ -405,7 +402,6 @@ public class DBEditor {
             	
                 Cpu cp = new Cpu(u, experiment_name, variables);
                 cpus.add(cp);
-                //System.out.println(id + "\t" + code + "\t" + name + "\t" + season + "\t" + year + "\t" + create_time);
             }
             rs.close();
 		} catch (SQLException e) {
@@ -427,17 +423,20 @@ public class DBEditor {
     			String clazzName = null;String email;String phone;Timestamp createTime;Timestamp lastLoginTime = null;String lastLoginIp = null;
     			Integer loginCount;Long onlineTime;
             	
-    			if(rs.getString("id")!= null)
-            		id = rs.getString("id");
+    			if(rs.getString("id")!= null) {
+					id = rs.getString("id");
+				}
             	username = rs.getString("username");
             	password = rs.getString("password");
             	enabled = true; //enabled = 1?
             	userRole = rs.getString("user_role");
-            	if(rs.getString("school_no")!= null)
-            		schoolNo = rs.getString("school_no");
+            	if(rs.getString("school_no")!= null) {
+					schoolNo = rs.getString("school_no");
+				}
             	name = rs.getString("name");
-            	if(rs.getString("clazz_name")!= null)
-            		clazzName = rs.getString("clazz_name");
+            	if(rs.getString("clazz_name")!= null) {
+					clazzName = rs.getString("clazz_name");
+				}
             	email = rs.getString("email");
             	phone = rs.getString("phone");
             	Date date = dateFormat.parse(rs.getString("create_time"));
@@ -458,7 +457,6 @@ public class DBEditor {
             			name,clazzName,email,phone,createTime,lastLoginTime,lastLoginIp,loginCount,onlineTime,null,
             			null, null); u.setId(id);
                 users.add(u);
-                System.out.println(id + "\t" + username + "\t" + name + "\t" + userRole + "\t" + schoolNo + "\t" + name);
             }
             rs.close();
 		} catch (SQLException e) {
@@ -485,7 +483,6 @@ public class DBEditor {
             	
             	CourseHasUser chu = new CourseHasUser(course_id, user_id);
                 chus.add(chu);
-                //System.out.println(id + "\t" + code + "\t" + name + "\t" + season + "\t" + year + "\t" + create_time);
             }
             rs.close();
 		} catch (SQLException e) {

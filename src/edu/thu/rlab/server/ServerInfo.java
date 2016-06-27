@@ -9,13 +9,15 @@ public class ServerInfo {
 	
 	public final static boolean activated = true;
 	
-	public final static String mainServerIp = "127.0.0.1";
+	public final static String mainServerIp = "127.0.0.1";//"166.111.227.77";
 	
 	public final static int serverPort = 9091;
 	
 	public final static String authenCode = "secret";
 	
 	public static boolean authenticated = false;
+	
+	public static int heartBeatForSync = 10000;
 	
 	public static String thisServerIp(){
 		

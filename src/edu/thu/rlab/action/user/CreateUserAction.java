@@ -27,12 +27,6 @@ public class CreateUserAction extends BaseAction {
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-	//	System.out.println("Username:" + user.getUsername());
-	//	System.out.println("Password:" + user.getPassword());
-	//	System.out.println("Email:" + user.getEmail());
-	//	System.out.println("Phone:" + user.getPhone());
-	//	System.out.println("Name:" + user.getName());
-	//	System.out.println("Id:" + user.getCourse().getId());
 		this.userService.create(this.getCurrentUser(), user);
 		success = true;
 		return INPUT;

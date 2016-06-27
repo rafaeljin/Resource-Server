@@ -6,7 +6,7 @@ import java.net.Socket;
 
 import edu.thu.rlab.dao.DeviceDAO;
 
-public class Device implements Runnable{
+public class Device implements Runnable,java.io.Serializable{
 
 	private DeviceDAO deviceDAO;
 	
@@ -41,6 +41,10 @@ public class Device implements Runnable{
 	private BufferedInputStream in;
 	
 	private byte[] buf = new byte[1024];
+	
+	// for cloud server
+	private boolean external = false;
+	private String hostIP = null;
 	
 	public Device(String id, String ip, int usbPort, int tcpPort, STATE state, DeviceDAO deviceDAO) {
 		super();
@@ -233,6 +237,21 @@ public class Device implements Runnable{
 	public void run() {
 		if(sysInit() < 0){
 			deviceDAO.afterDeviceSysInitFailed(this);
+		}
+	}
+	
+	public void setCloudParameters(boolean ext,String host)
+	{
+		this.external = ext;
+		this.hostIP = host;
+	}
+	
+	public String getHostServer()
+	{
+		if(external) {
+			return hostIP;
+		} else {
+			return null;
 		}
 	}
 }

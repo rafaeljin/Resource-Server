@@ -1,8 +1,7 @@
 package edu.thu.rlab.dao;
 
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
@@ -10,6 +9,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import edu.thu.rlab.pojo.Course;
+import edu.thu.rlab.server.Messenger;
+import edu.thu.rlab.server.ServerInfo;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -31,6 +32,7 @@ public class CourseDAO extends HibernateDaoSupport {
 	public static final String YEAR = "year";
 	public static final String SEASON = "season";
 
+	@Override
 	protected void initDao() {
 		// do nothing
 	}
@@ -39,6 +41,9 @@ public class CourseDAO extends HibernateDaoSupport {
 		log.debug("saving Course instance");
 		try {
 			getHibernateTemplate().save(transientInstance);
+			if(ServerInfo.activated) {
+				Messenger.add(transientInstance);
+			}
 			log.debug("save successful");
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
@@ -50,6 +55,8 @@ public class CourseDAO extends HibernateDaoSupport {
 		log.debug("deleting Course instance");
 		try {
 			getHibernateTemplate().delete(persistentInstance);
+			//if(ServerInfo.activated)
+				//Messenger.remove(transientInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -124,7 +131,7 @@ public class CourseDAO extends HibernateDaoSupport {
 	public Course merge(Course detachedInstance) {
 		log.debug("merging Course instance");
 		try {
-			Course result = (Course) getHibernateTemplate().merge(
+			Course result = getHibernateTemplate().merge(
 					detachedInstance);
 			log.debug("merge successful");
 			return result;

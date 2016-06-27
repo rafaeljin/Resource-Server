@@ -16,6 +16,8 @@ import edu.thu.rlab.dao.DeviceDAO;
 import edu.thu.rlab.pojo.Device;
 import edu.thu.rlab.pojo.DeviceCmd;
 import edu.thu.rlab.pojo.User;
+import edu.thu.rlab.server.Messenger;
+import edu.thu.rlab.server.ServerInfo;
 import edu.thu.rlab.service.DeviceService;
 
 public class DeviceServiceImpl extends TimerTask implements DeviceService {
@@ -68,6 +70,12 @@ public class DeviceServiceImpl extends TimerTask implements DeviceService {
 		}
 
 		device = this.deviceDAO.allocate(user);
+		
+		// try get new device from main server
+		if(ServerInfo.activated && device == null){
+			device = Messenger.requestRemoteDevice(user);
+		}	
+		
 		if (null == device) {
 			user.setDeviceState(User.DEVICESTATE.NULL);
 			return Message.NoAvailableDevice;
@@ -83,15 +91,22 @@ public class DeviceServiceImpl extends TimerTask implements DeviceService {
 
 
 	public void disconnect(User user) {
+		
 		// first check if existed
 		if (!userDeviceMap.containsKey(user.getId())) {
 			return;
 		}
-		Device device;
+		Device device = null;
 		synchronized (lock) {
 			device = userDeviceMap.remove(user.getId());
 		}
-		deviceDAO.free(device);
+		
+		// check if external
+		if(ServerInfo.activated && device.getHostServer()!=null){
+			Messenger.returnRemoteDevice(user,device); 
+		} else {
+			deviceDAO.free(device);
+		}
 		user.setDeviceState(User.DEVICESTATE.NULL);
 		
 	}

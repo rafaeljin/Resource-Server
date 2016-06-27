@@ -2,6 +2,7 @@ package edu.thu.rlab.server;
 import edu.thu.rlab.pojo.Course;
 import edu.thu.rlab.pojo.CourseHasUser;
 import edu.thu.rlab.pojo.Cpu;
+import edu.thu.rlab.pojo.Device;
 import edu.thu.rlab.pojo.Experiment;
 import edu.thu.rlab.pojo.User;
 
@@ -36,8 +37,23 @@ public class MyMessage implements java.io.Serializable{
 	
 	private CourseHasUser coursehasuser = null;
 		
-	public static final int CLIENT_CONNECT = 6;
+	public static final int REQUEST_DEVICE_FROM_MAINSERVER = 6;
 	
+	public static final int RETURN_DEVICE_TO_MAINSERVER = 7;
+	
+	public static final int REQUEST_DEVICE_FROM_TARGET_RESOURCESERVER = 8;
+	
+	public static final int RETURN_DEVICE_TO_TARGET_RESOURCESERVER = 9;
+	
+	public static final int REMOVE_COURSE = 10;
+	
+	public static final int REMOVE_USER = 11;
+	
+	public static final int REMOVE_EXPERIMENT = 12;
+	
+	public static final int REMOVE_CPU = 13;
+	
+	private Device device = null;
 	
 	public MyMessage(int t,String code)
 	{
@@ -75,6 +91,19 @@ public class MyMessage implements java.io.Serializable{
 		course = cs;
 	}
 	
+	public MyMessage(int t,Device d)
+	{
+		type = t;
+		device = d;
+	}
+	
+	public MyMessage(int t,User u,Device d)
+	{
+		type = t;
+		user = u;
+		device = d;
+	}
+	
 	public int getType()
 	{
 		return type;
@@ -85,17 +114,17 @@ public class MyMessage implements java.io.Serializable{
 		return authen_code;
 	}
 	
-	public Course getExperiment()
+	public Experiment getExperiment()
 	{
-		return experiment;
+		return expr;
 	}
 	
-	public Course getCpu()
+	public Cpu getCpu()
 	{
 		return cpu;
 	}
 	
-	public Course getUser()
+	public User getUser()
 	{
 		return user;
 	}
@@ -105,9 +134,14 @@ public class MyMessage implements java.io.Serializable{
 		return course;
 	}
 	
-	public Course getCourseHasUser()
+	public CourseHasUser getCourseHasUser()
 	{
 		return coursehasuser;
+	}
+	
+	public Device getDevice()
+	{
+		return device;
 	}
 
 }

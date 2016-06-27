@@ -92,13 +92,13 @@ public class RunOnStartup extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		// uncomment if you want to shutdown server when authentication failed
-		/*if( MainserverInfo.activated){
-			if(!Uploader.authen()){
+		/*if( ServerInfo.activated){
+			if(!Messenger.authen()){
 				try { 
 				    Socket socket = new Socket("localhost", 8005); 
 				    if (socket.isConnected()) { 
 				        PrintWriter pw = new PrintWriter(socket.getOutputStream(), true); 
-				        pw.println("SHUTDOWN");//send shut down command 
+				        pw.println("MYSHUTDOWN");//send shut down command 
 				        pw.close(); 
 				        socket.close(); 
 				    } 
@@ -107,18 +107,8 @@ public class RunOnStartup extends HttpServlet {
 				}
 			}
 		}*/
-
-		/*DBEditor dbeditor = new DBEditor("mydb","root","rlab");
-        dbeditor.connect();
-        Messenger.authen();
-        /*Database database = new Database();
-        database.chasulist = dbeditor.readAllCHU();
-        database.cpulist = dbeditor.readAllCpus();
-        database.experimentlist = dbeditor.readAllExperiments();
-        database.userlist = dbeditor.readAllUsers();
-        database.courselist = dbeditor.readAllCourses();*/
+		
+		// Authenticate Server before connection. 
 		Messenger.authen();
-        
 	}
-
 }

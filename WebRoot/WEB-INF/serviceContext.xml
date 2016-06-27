@@ -26,4 +26,8 @@
 		<property name="serverPort" value="8011"></property>
 		<property name="deviceDAO" ref="deviceDAO"></property>
 	</bean>
+	<bean name="listenerToMainServer" class="edu.thu.rlab.server.ListenerToMainServer" init-method="init">
+		<property name="serverPort" value="5502"></property>
+		<property name="deviceDAO" ref="deviceDAO"></property>
+	</bean>
 </beans>
